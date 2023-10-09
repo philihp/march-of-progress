@@ -1,5 +1,5 @@
 import { assoc, complement, propEq } from 'ramda'
-import { CompleteReducer, Config, StateReducer, Status } from '../types'
+import { CompleteReducer, Config, Scenario, StateReducer, Status } from '../types'
 
 export const execute =
   (params: Config): StateReducer =>
@@ -9,6 +9,9 @@ export const execute =
     return assoc<Config, 'config'>('config', params)(state)
   }
 
-export const complete: CompleteReducer = (partial) => (state) => []
+export const complete: CompleteReducer = (partial) => (state) => {
+  if (state.status !== Status.SETUP) return []
+  return [Scenario.THIRTY]
+}
 
 export default undefined
