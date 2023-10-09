@@ -18,5 +18,9 @@ describe('commands/execute', () => {
       })!
       expect(s1).toBeUndefined()
     })
+    it('will not run if state is undefined', () => {
+      const s1 = execute({ scenario: Scenario.THIRTY })(undefined)!
+      expect(s1).toBeUndefined()
+    })
   })
 })
