@@ -9,7 +9,7 @@ describe('commands/execute', () => {
         ...initialState,
         status: Status.SETUP,
       })!
-      expect(s1.config?.scenario).toBe('THIRTY')
+      expect(s1.config?.scenario).toBe('thirty')
     })
     it('will not run if game started', () => {
       const s1 = execute({ scenario: Scenario.THIRTY })({
@@ -37,7 +37,7 @@ describe('commands/execute', () => {
         ...initialState,
         status: Status.SETUP,
       })!
-      expect(c1).toStrictEqual(['THIRTY'])
+      expect(c1).toStrictEqual(['thirty'])
     })
   })
 })

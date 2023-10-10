@@ -1,21 +1,25 @@
 import { PCGState } from 'fn-pcg/dist/types'
 
 export enum Command {
-  CONFIG = 'CONFIG',
-  START = 'START',
+  CONFIG = 'config',
+  START = 'start',
 }
 
 export enum Scenario {
-  THIRTY = 'THIRTY',
+  THIRTY = 'thirty',
 }
 
 export type Config = {
   scenario: Scenario
 }
 
+export type Start = {
+  seed?: number
+}
+
 export enum PlayerColor {
-  ORANGE = 'O',
-  BLUE = 'B',
+  ORANGE = 'orange',
+  BLUE = 'blue',
 }
 
 export type StartParams = {
@@ -23,20 +27,32 @@ export type StartParams = {
 }
 
 export enum Status {
-  SETUP = 'SETUP',
-  PLAYING = 'PLAYING',
-  FINISHED = 'FINISHED',
+  SETUP = 'setup',
+  PLAYING = 'playing',
+  FINISHED = 'finished',
 }
 
 export type ActionConfig = { command: Command.CONFIG; params: Config }
 export type ActionStart = { command: Command.START; params: StartParams }
 export type Action = ActionConfig | ActionStart
 
+// These are things focused on relaying to the player's interface, and will not
+// be visible to other players.
 export type Control = {
-  waitingForBlue: boolean
-  waitingForOrange: boolean
   partial: string[]
   completion: string[]
+}
+
+// These are things relayed to the player that show the current UI state of what
+// is to happen.
+export type Frame = {
+  waitingForBlue: boolean
+  waitingForOrange: boolean
+}
+
+export type Territory = {
+  name: string
+  owner?: PlayerColor
 }
 
 export type State = {
@@ -44,6 +60,9 @@ export type State = {
   randGen?: PCGState
   config?: Config
   control: Control
+  frame: Frame
+  initiative?: PlayerColor
+  territories: Territory[]
 }
 export type StateReducer = (state: State | undefined) => State | undefined
 
