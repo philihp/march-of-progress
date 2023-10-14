@@ -55,14 +55,18 @@ describe('commands/start', () => {
       expect(s2.territories).toStrictEqual([
         {
           name: 'Orange',
-          owner: PlayerColor.ORANGE,
+          armies: [],
+          vpSpace: 3,
         },
         {
           name: 'Neutral',
+          armies: [],
+          vpSpace: 2,
         },
         {
           name: 'Blue',
-          owner: PlayerColor.BLUE,
+          armies: [],
+          vpSpace: 3,
         },
       ])
     })

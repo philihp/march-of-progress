@@ -1,16 +1,41 @@
 import { PCGState } from 'fn-pcg/dist/types'
-import { State, Status } from './types'
+import { PlayerColor, State, Status } from './types'
 
 export const initialState: State = {
   randGen: {} as PCGState,
   status: Status.SETUP,
   frame: {
-    waitingForBlue: false,
-    waitingForOrange: false,
+    waiting: {
+      [PlayerColor.BLUE]: false,
+      [PlayerColor.ORANGE]: false,
+    },
   },
   control: {
-    partial: [],
-    completion: [],
+    [PlayerColor.BLUE]: {
+      partial: [],
+      completion: [],
+    },
+    [PlayerColor.ORANGE]: {
+      partial: [],
+      completion: [],
+    },
   },
   territories: [],
+  tableau: {
+    [PlayerColor.BLUE]: {
+      strength: 1,
+      armies: [],
+      points: 0,
+      hand: [],
+      discard: [],
+    },
+    [PlayerColor.ORANGE]: {
+      strength: 1,
+      armies: [],
+      points: 0,
+      hand: [],
+      discard: [],
+    },
+  },
+  points: 35,
 }

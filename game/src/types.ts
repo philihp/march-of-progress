@@ -9,6 +9,17 @@ export enum Scenario {
   THIRTY = 'thirty',
 }
 
+export enum Card {
+  MOVE1 = 'move1',
+  MOVE2 = 'move2',
+  RECRUIT = 'recruit',
+  FORTIFY = 'fortify',
+  ATTACK = 'attack',
+  ATTACK1 = 'attack1',
+  STRENGTH = 'strength',
+  SCORE = 'score',
+}
+
 export type Config = {
   scenario: Scenario
 }
@@ -46,23 +57,38 @@ export type Control = {
 // These are things relayed to the player that show the current UI state of what
 // is to happen.
 export type Frame = {
-  waitingForBlue: boolean
-  waitingForOrange: boolean
+  waiting: Record<PlayerColor, boolean>
+}
+
+export type Army = {
+  color: PlayerColor
+  fortified: boolean
 }
 
 export type Territory = {
   name: string
-  owner?: PlayerColor
+  vpSpace: number
+  armies: Army[]
+}
+
+export type Tableau = {
+  strength: number
+  points: number
+  hand: Card[]
+  discard: Card[]
+  armies: Army[]
 }
 
 export type State = {
   status: Status
   randGen?: PCGState
   config?: Config
-  control: Control
+  control: Record<PlayerColor, Control>
   frame: Frame
   initiative?: PlayerColor
+  tableau: Record<PlayerColor, Tableau>
   territories: Territory[]
+  points: number
 }
 export type StateReducer = (state: State | undefined) => State | undefined
 
